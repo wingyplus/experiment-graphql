@@ -12,3 +12,11 @@ $ node app.js
 เข้า web browser ด้วย `http://localhost:3000/graphql` จะเจอหน้าให้ graphql query ขึ้นตามรูปด้านล่าง
 
 ![screenshots](./screenshots/screenshot.png)
+
+# ทดสอบด้วย HTTP client
+
+ตัวอย่างการเรียกใช้อยู่ใน `client.go` โดยสามารถทดลองเรียกได้โดย
+
+```bash
+$ go run client.go
+```
