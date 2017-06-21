@@ -20,7 +20,7 @@ type Query {
 );
 
 const root = {
-  product(pid) {
+  product({ pid }) {
     return ProductService.find(pid);
   }
 };

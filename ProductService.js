@@ -22,7 +22,7 @@ const ProductInMemoryData = {
 
 // find product by given pid
 module.exports = {
-  find({ pid }) {
+  find(pid) {
     return ProductInMemoryData[pid];
   }
 };
