@@ -3,11 +3,7 @@ const InventoryService = require("./InventoryService");
 class Product {
   constructor(pid, name) {
     this.pid = pid;
-    this._name = name;
-  }
-
-  name() {
-    return this._name;
+    this.name = name;
   }
 
   stockAvailable() {
