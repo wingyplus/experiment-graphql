@@ -1,29 +1,39 @@
 const {
   graphql,
-  GraphQLSchema,
-  GraphQLObjectType,
-  GraphQLString
+  buildSchema
 } = require("graphql");
+const graphqlHTTP = require("express-graphql");
 const express = require("express");
+const ProductService = require("./ProductService");
 
-var schema = new GraphQLSchema({
-  query: new GraphQLObjectType({
-    name: "RootQueryType",
-    fields: {
-      hello: {
-        type: GraphQLString,
-        resolve() {
-          return "world";
-        }
-      }
-    }
-  })
-});
+const productSchema = buildSchema(
+  `
+type Product {
+  name: String
+  stockAvailable: Int
+}
+
+type Query {
+  product(pid: String!): Product
+}
+  `
+);
+
+const root = {
+  product(pid) {
+    return ProductService.find(pid);
+  }
+};
 
 const app = express();
 
-app.get('/', (req, res) => {
-  graphql(schema, `{ hello }`).then(result => res.send(result));
-});
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema: productSchema,
+    rootValue: root,
+    graphiql: true
+  })
+);
 
 app.listen(3000, () => console.log("Listen on 3000"));
